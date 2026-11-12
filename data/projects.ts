@@ -161,17 +161,50 @@ export const projectsData: Ecosystem[] = [
     githubUrl: "https://github.com/TChasiotis/zucchero.cafe",
     apps: [
       {
-        id: "customer-menu",
-        title: { en: "Customer Menu", el: "Μενού Πελατών" },
+        id: "customer-web",
+        title: { en: "Customer Web App", el: "Εφαρμογή Πελατών" },
         features: [
           {
-            title: { en: "Interactive Menu", el: "Διαδραστικό Μενού" },
+            title: { en: "The Digital Storefront", el: "Η Ψηφιακή Βιτρίνα" },
             description: {
-              en: "Modern digital menu interface allowing customers to view products live.",
-              el: "Σύγχρονο ψηφιακό μενού που επιτρέπει στους πελάτες να βλέπουν τα προϊόντα ζωντανά.",
+              en: "A premium landing page capturing the essence of the historic pastry shop. Features an 8-language selector directly in the header.",
+              el: "Μια premium αρχική σελίδα σχεδιασμένη να αποπνέει την αίσθηση του ιστορικού ζαχαροπλαστείου. Διαθέτει επιλογή 8 γλωσσών ψηλά στο μενού.",
             },
             type: "iframe",
             mediaUrl: "https://zucchero.gr",
+          },
+          {
+            title: { en: "Dynamic Anchor Routing", el: "Ομαλή Πλοήγηση" },
+            description: {
+              en: "Seamless scroll-to-anchor routing. Notice how the iframe flawlessly handles the '#' URL changes, syncing the view with the scroll.",
+              el: "Ομαλή μετάβαση στα anchors της σελίδας. Παρατηρήστε πώς το iframe συγχρονίζει τέλεια την προβολή με το URL.",
+            },
+            type: "iframe",
+            mediaUrl: "https://zucchero.gr/#specialties",
+          },
+          {
+            title: {
+              en: "In-Store QR Experience",
+              el: "Εμπειρία QR στο Κατάστημα",
+            },
+            description: {
+              en: "Bridging physical and digital worlds. Customers scanning the table QR code land on this custom, scrollable welcome screen to select their preferred language.",
+              el: "Γεφυρώνοντας το φυσικό με το ψηφιακό. Οι πελάτες σκανάρουν το QR του τραπεζιού και επιλέγουν γλώσσα σε αυτή την ειδικά διαμορφωμένη welcome screen.",
+            },
+            type: "iframe",
+            mediaUrl: "https://zucchero.gr/menu/welcome",
+          },
+          {
+            title: {
+              en: "Interactive Digital Menu",
+              el: "Ψηφιακός Κατάλογος & Αλλεργιογόνα",
+            },
+            description: {
+              en: "The core product catalog. Features live search, horizontal category filtering, and highly visible, color-coded allergen & dietary tags (Vegan, Gluten-Free) ensuring customer safety.",
+              el: "Ο βασικός κατάλογος. Διαθέτει ζωντανή αναζήτηση, φίλτρα κατηγοριών και χρωματικά κωδικοποιημένες ετικέτες αλλεργιογόνων (Vegan, Gluten-Free) για την απόλυτη ασφάλεια του πελάτη.",
+            },
+            type: "iframe",
+            mediaUrl: "https://zucchero.gr/menu?lang=en",
           },
         ],
       },

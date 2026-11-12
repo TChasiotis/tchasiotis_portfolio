@@ -124,7 +124,7 @@ const dict = {
   },
   el: {
     navHome: "Αρχική",
-    navProjects: "Projects", // Διορθώθηκε από "Έργα"
+    navProjects: "Projects",
     navAbout: "Βιογραφικό",
     title: "Θωμάς Χασιώτης",
     subtitle: "Φοιτητής Μηχανικός Πληροφορικής & Ηλεκτρονικών Συστημάτων",
@@ -174,7 +174,6 @@ export default function AboutPage() {
   const [lang, setLang] = useState<"en" | "el">("en");
   const [mounted, setMounted] = useState(false);
 
-  // 1. Όταν φορτώνει η σελίδα, διαβάζουμε αν υπάρχει αποθηκευμένη γλώσσα
   useEffect(() => {
     setMounted(true);
     const savedLang = localStorage.getItem("portfolio_lang") as "en" | "el";
@@ -183,7 +182,6 @@ export default function AboutPage() {
     }
   }, []);
 
-  // 2. Συνάρτηση που αλλάζει τη γλώσσα ΚΑΙ την αποθηκεύει
   const changeLanguage = (newLang: "en" | "el") => {
     setLang(newLang);
     localStorage.setItem("portfolio_lang", newLang);
@@ -191,7 +189,6 @@ export default function AboutPage() {
 
   const t = dict[lang];
 
-  // Αποτροπή hydration mismatch (περιμένουμε να διαβάσει το localStorage)
   if (!mounted) return null;
 
   return (
@@ -243,13 +240,13 @@ export default function AboutPage() {
         </div>
       </header>
 
-      <main className="max-w-5xl mx-auto px-6 mt-16 z-10 relative">
+      <main className="max-w-4xl mx-auto px-6 mt-16 z-10 relative space-y-12">
         {/* 2. PROFILE & CONTACT HERO */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="bg-white rounded-3xl p-8 md:p-12 border border-zinc-200/60 shadow-sm flex flex-col md:flex-row gap-8 items-start md:items-center justify-between mb-12"
+          className="bg-white rounded-3xl p-8 md:p-12 border border-zinc-200/60 shadow-sm flex flex-col md:flex-row gap-8 items-start md:items-center justify-between"
         >
           <div>
             <h1 className="text-4xl md:text-5xl font-black tracking-tight mb-2">
@@ -280,7 +277,7 @@ export default function AboutPage() {
           </div>
 
           {/* Social Links */}
-          <div className="flex gap-3">
+          <div className="flex gap-3 shrink-0">
             <a
               href="https://www.linkedin.com/in/thomas-chasiotis-71174a3a4/"
               target="_blank"
@@ -308,297 +305,280 @@ export default function AboutPage() {
           </div>
         </motion.div>
 
-        {/* 3. TWO COLUMN LAYOUT */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-          {/* ΑΡΙΣΤΕΡΗ ΣΤΗΛΗ: Εκπαίδευση & Εμπειρία */}
-          <div className="lg:col-span-7 space-y-10">
-            {/* Education */}
-            <motion.section
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2 }}
-            >
-              <div className="flex items-center gap-3 mb-6">
-                <GraduationCap size={24} className="text-black" />
-                <h2 className="text-2xl font-bold tracking-tight">
-                  {t.eduTitle}
-                </h2>
-              </div>
+        {/* 3. TECHNICAL ARSENAL (Ολόκληρο πλάτος) */}
+        <motion.section
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+        >
+          <div className="bg-black text-white p-8 md:p-10 rounded-3xl shadow-xl">
+            <div className="flex items-center gap-3 mb-8">
+              <Code2 size={26} className="text-zinc-400" />
+              <h2 className="text-2xl font-bold tracking-tight">
+                {t.techTitle}
+              </h2>
+            </div>
 
-              <div className="space-y-6 relative before:absolute before:inset-0 before:ml-2 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-zinc-200">
-                {/* High School */}
-                <div className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
-                  <div className="flex items-center justify-center w-5 h-5 rounded-full border-4 border-white bg-zinc-300 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow-sm z-10 ml-[-9px] md:ml-0"></div>
-                  <div className="w-[calc(100%-2rem)] md:w-[calc(50%-1.5rem)] bg-white p-5 rounded-2xl border border-zinc-200/60 shadow-sm ml-4 md:ml-0">
-                    <div className="text-xs font-bold text-zinc-400 uppercase tracking-wider mb-1">
-                      {t.eduHsGrad}
-                    </div>
-                    <h3 className="font-bold text-lg leading-tight mb-1">
-                      {t.eduHsTitle}
-                    </h3>
-                    <p className="text-zinc-500 text-sm mb-2">
-                      {t.eduHsSubtitle}
-                    </p>
-                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-zinc-100 text-zinc-800">
-                      {t.eduHsGrade}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Undergrad */}
-                <div className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
-                  <div className="flex items-center justify-center w-5 h-5 rounded-full border-4 border-white bg-black shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow-sm z-10 ml-[-9px] md:ml-0"></div>
-                  <div className="w-[calc(100%-2rem)] md:w-[calc(50%-1.5rem)] bg-white p-5 rounded-2xl border border-zinc-200/60 shadow-sm ml-4 md:ml-0">
-                    <div className="text-xs font-bold text-zinc-400 uppercase tracking-wider mb-1">
-                      {t.eduUniDate}
-                    </div>
-                    <h3 className="font-bold text-lg leading-tight mb-1">
-                      {t.eduUniTitle}
-                    </h3>
-                    <p className="text-zinc-500 text-sm">{t.eduUniSubtitle}</p>
-                    <p className="text-black text-sm font-medium mt-2">
-                      {t.eduUniStatus}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </motion.section>
-
-            {/* Experience */}
-            <motion.section
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.3 }}
-            >
-              <div className="flex items-center gap-3 mb-6">
-                <Briefcase size={24} className="text-black" />
-                <h2 className="text-2xl font-bold tracking-tight">
-                  {t.expTitle}
-                </h2>
-              </div>
-
-              <div className="bg-white p-6 rounded-2xl border border-zinc-200/60 shadow-sm">
-                <div className="flex justify-between items-start mb-4">
-                  <div>
-                    <h3 className="font-bold text-lg">Patisserie "Zucchero"</h3>
-                    <p className="text-zinc-500 text-sm">{t.expZucSub}</p>
-                  </div>
-                  <span className="text-xs font-bold text-zinc-400 uppercase tracking-wider bg-zinc-100 px-3 py-1 rounded-full">
-                    {t.expZucDate}
-                  </span>
-                </div>
-                <ul className="space-y-2 text-sm text-zinc-600">
-                  <li className="flex items-start gap-2">
-                    <span className="text-black mt-1">•</span> {t.expZucB1}
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-black mt-1">•</span> {t.expZucB2}
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-black mt-1">•</span> {t.expZucB3}
-                  </li>
-                </ul>
-              </div>
-            </motion.section>
-          </div>
-
-          {/* ΔΕΞΙΑ ΣΤΗΛΗ: Skills & Certs */}
-          <div className="lg:col-span-5 space-y-8">
-            <motion.section
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
-            >
-              <div className="bg-black text-white p-7 rounded-3xl shadow-xl">
-                <div className="flex items-center gap-3 mb-6">
-                  <Code2 size={22} className="text-zinc-400" />
-                  <h2 className="text-xl font-bold">{t.techTitle}</h2>
-                </div>
-
-                <div className="space-y-5">
-                  {/* WEB DEVELOPMENT */}
-                  <div>
-                    <h4 className="text-xs text-zinc-400 uppercase font-bold tracking-widest mb-2 flex items-center gap-2">
-                      <LayoutTemplate size={14} /> {t.techWeb}
-                    </h4>
-                    <div className="flex flex-wrap gap-2">
-                      {[
-                        "React",
-                        "Next.js",
-                        "TypeScript",
-                        "Tailwind CSS",
-                        "Framer Motion",
-                      ].map((skill) => (
-                        <span
-                          key={skill}
-                          className="px-3 py-1 bg-zinc-800 rounded-lg text-sm font-medium border border-zinc-700"
-                        >
-                          {skill}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* APP DEVELOPMENT */}
-                  <div>
-                    <h4 className="text-xs text-zinc-400 uppercase font-bold tracking-widest mb-2 flex items-center gap-2">
-                      <Code2 size={14} /> {t.techApp}
-                    </h4>
-                    <div className="flex flex-wrap gap-2">
-                      {["Kotlin", "React Native", "Java", "JavaFX"].map(
-                        (skill) => (
-                          <span
-                            key={skill}
-                            className="px-3 py-1 bg-zinc-800 rounded-lg text-sm font-medium border border-zinc-700"
-                          >
-                            {skill}
-                          </span>
-                        ),
-                      )}
-                    </div>
-                  </div>
-
-                  {/* SYSTEMS / EMBEDDED */}
-                  <div>
-                    <h4 className="text-xs text-zinc-400 uppercase font-bold tracking-widest mb-2 flex items-center gap-2">
-                      <Cpu size={14} /> {t.techSys}
-                    </h4>
-                    <div className="flex flex-wrap gap-2">
-                      {["C", "C++", "CCS", "Assembly (MCU)"].map((skill) => (
-                        <span
-                          key={skill}
-                          className="px-3 py-1 bg-zinc-800 rounded-lg text-sm font-medium border border-zinc-700"
-                        >
-                          {skill}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* BACKEND & CLOUD */}
-                  <div>
-                    <h4 className="text-xs text-zinc-400 uppercase font-bold tracking-widest mb-2 flex items-center gap-2">
-                      <Cloud size={14} /> {t.techBackend}
-                    </h4>
-                    <div className="flex flex-wrap gap-2">
-                      {[
-                        "PostgreSQL",
-                        "Neon",
-                        "Firestore",
-                        "Vercel",
-                        "Cloudflare",
-                      ].map((skill) => (
-                        <span
-                          key={skill}
-                          className="px-3 py-1 bg-zinc-800 rounded-lg text-sm font-medium border border-zinc-700"
-                        >
-                          {skill}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* OS & TOOLS */}
-                  <div>
-                    <h4 className="text-xs text-zinc-400 uppercase font-bold tracking-widest mb-2 flex items-center gap-2">
-                      <Wrench size={14} /> {t.techTools}
-                    </h4>
-                    <div className="flex flex-wrap gap-2">
-                      {[
-                        "Linux / Bash",
-                        "Git / GitHub",
-                        "VS Code",
-                        "IntelliJ",
-                        "Android Studio",
-                      ].map((skill) => (
-                        <span
-                          key={skill}
-                          className="px-3 py-1 bg-zinc-800 rounded-lg text-sm font-medium border border-zinc-700"
-                        >
-                          {skill}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </motion.section>
-
-            <motion.section
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
-            >
-              <div className="bg-white p-7 rounded-3xl border border-zinc-200/60 shadow-sm space-y-6">
-                <div>
-                  <div className="flex items-center gap-2 mb-4">
-                    <Globe size={18} className="text-black" />
-                    <h3 className="font-bold text-lg">{t.langTitle}</h3>
-                  </div>
-                  <div className="space-y-3">
-                    <div className="flex justify-between items-center pb-2 border-b border-zinc-100">
-                      <span className="text-sm font-medium text-zinc-700">
-                        {t.langGr}
-                      </span>
-                      <span className="text-xs font-bold bg-zinc-100 px-2 py-1 rounded text-zinc-600">
-                        {t.langGrLvl}
-                      </span>
-                    </div>
-                    <div className="flex justify-between items-center pb-2 border-b border-zinc-100">
-                      <span className="text-sm font-medium text-zinc-700">
-                        {t.langEn}
-                      </span>
-                      <span className="text-xs font-bold bg-zinc-100 px-2 py-1 rounded text-zinc-600">
-                        {t.langEnLvl}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                <div>
-                  <div className="flex items-center gap-2 mb-4 mt-2">
-                    <Award size={18} className="text-black" />
-                    <h3 className="font-bold text-lg">{t.certTitle}</h3>
-                  </div>
-                  <ul className="space-y-3 text-sm text-zinc-600">
-                    <li className="font-medium text-black">
-                      Figma: TChasiotis
-                    </li>
-                    <li className="font-medium text-black">
-                      {t.certE4E} <br />
-                      <span className="text-zinc-500 font-normal text-xs">
-                        {t.certE4ESub}
-                      </span>
-                    </li>
-                    <li className="font-medium text-black">
-                      {t.certIT} <br />
-                      <span className="text-zinc-500 font-normal text-xs">
-                        {t.certITSub}
-                      </span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </motion.section>
-
-            {/* Hardware Bonus Section */}
-            <motion.section
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.6 }}
-            >
-              <div className="bg-zinc-100/50 p-6 rounded-2xl border border-zinc-200/50 text-sm">
-                <h4 className="font-bold text-zinc-800 mb-2 flex items-center gap-2">
-                  <Cpu size={16} /> {t.hwTitle}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {/* WEB DEVELOPMENT */}
+              <div>
+                <h4 className="text-xs text-zinc-400 uppercase font-bold tracking-widest mb-3 flex items-center gap-2">
+                  <LayoutTemplate size={14} /> {t.techWeb}
                 </h4>
-                <p className="text-zinc-600 leading-relaxed mb-2">
-                  {t.hwDesc1}
-                </p>
-                <p className="text-zinc-600 leading-relaxed">{t.hwDesc2}</p>
+                <div className="flex flex-wrap gap-2">
+                  {[
+                    "React",
+                    "Next.js",
+                    "TypeScript",
+                    "Tailwind CSS",
+                    "Framer Motion",
+                  ].map((skill) => (
+                    <span
+                      key={skill}
+                      className="px-3 py-1.5 bg-zinc-800/80 rounded-lg text-sm font-medium border border-zinc-700/50"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </motion.section>
+
+              {/* APP DEVELOPMENT */}
+              <div>
+                <h4 className="text-xs text-zinc-400 uppercase font-bold tracking-widest mb-3 flex items-center gap-2">
+                  <Code2 size={14} /> {t.techApp}
+                </h4>
+                <div className="flex flex-wrap gap-2">
+                  {["Kotlin", "React Native", "Java", "JavaFX"].map((skill) => (
+                    <span
+                      key={skill}
+                      className="px-3 py-1.5 bg-zinc-800/80 rounded-lg text-sm font-medium border border-zinc-700/50"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* SYSTEMS / EMBEDDED */}
+              <div>
+                <h4 className="text-xs text-zinc-400 uppercase font-bold tracking-widest mb-3 flex items-center gap-2">
+                  <Cpu size={14} /> {t.techSys}
+                </h4>
+                <div className="flex flex-wrap gap-2">
+                  {["C", "CCS", "Assembly (MCU)"].map((skill) => (
+                    <span
+                      key={skill}
+                      className="px-3 py-1.5 bg-zinc-800/80 rounded-lg text-sm font-medium border border-zinc-700/50"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* BACKEND & CLOUD */}
+              <div>
+                <h4 className="text-xs text-zinc-400 uppercase font-bold tracking-widest mb-3 flex items-center gap-2">
+                  <Cloud size={14} /> {t.techBackend}
+                </h4>
+                <div className="flex flex-wrap gap-2">
+                  {[
+                    "PostgreSQL",
+                    "Neon",
+                    "Firestore",
+                    "Vercel",
+                    "Cloudflare",
+                  ].map((skill) => (
+                    <span
+                      key={skill}
+                      className="px-3 py-1.5 bg-zinc-800/80 rounded-lg text-sm font-medium border border-zinc-700/50"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* OS & TOOLS */}
+              <div className="md:col-span-2">
+                <h4 className="text-xs text-zinc-400 uppercase font-bold tracking-widest mb-3 flex items-center gap-2">
+                  <Wrench size={14} /> {t.techTools}
+                </h4>
+                <div className="flex flex-wrap gap-2">
+                  {[
+                    "Linux / Bash",
+                    "Git / GitHub",
+                    "VS Code",
+                    "IntelliJ",
+                    "Android Studio",
+                  ].map((skill) => (
+                    <span
+                      key={skill}
+                      className="px-3 py-1.5 bg-zinc-800/80 rounded-lg text-sm font-medium border border-zinc-700/50"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
+        </motion.section>
+
+        {/* 4. EDUCATION */}
+        <motion.section
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3 }}
+        >
+          <div className="flex items-center gap-3 mb-6">
+            <GraduationCap size={24} className="text-black" />
+            <h2 className="text-2xl font-bold tracking-tight">{t.eduTitle}</h2>
+          </div>
+
+          <div className="space-y-6 relative before:absolute before:inset-0 before:ml-2 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-zinc-200">
+            {/* High School */}
+            <div className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+              <div className="flex items-center justify-center w-5 h-5 rounded-full border-4 border-white bg-zinc-300 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow-sm z-10 ml-[-9px] md:ml-0"></div>
+              <div className="w-[calc(100%-2rem)] md:w-[calc(50%-2rem)] bg-white p-6 rounded-2xl border border-zinc-200/60 shadow-sm ml-4 md:ml-0 hover:border-zinc-300 transition-colors">
+                <div className="text-xs font-bold text-zinc-400 uppercase tracking-wider mb-2">
+                  {t.eduHsGrad}
+                </div>
+                <h3 className="font-bold text-lg leading-tight mb-2">
+                  {t.eduHsTitle}
+                </h3>
+                <p className="text-zinc-500 text-sm mb-4">{t.eduHsSubtitle}</p>
+                <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-zinc-100 text-zinc-800">
+                  {t.eduHsGrade}
+                </span>
+              </div>
+            </div>
+
+            {/* Undergrad */}
+            <div className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+              <div className="flex items-center justify-center w-5 h-5 rounded-full border-4 border-white bg-black shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow-sm z-10 ml-[-9px] md:ml-0"></div>
+              <div className="w-[calc(100%-2rem)] md:w-[calc(50%-2rem)] bg-white p-6 rounded-2xl border border-zinc-200/60 shadow-sm ml-4 md:ml-0 hover:border-zinc-300 transition-colors">
+                <div className="text-xs font-bold text-zinc-400 uppercase tracking-wider mb-2">
+                  {t.eduUniDate}
+                </div>
+                <h3 className="font-bold text-lg leading-tight mb-2">
+                  {t.eduUniTitle}
+                </h3>
+                <p className="text-zinc-500 text-sm mb-3">{t.eduUniSubtitle}</p>
+                <p className="text-black text-sm font-bold bg-zinc-100 px-3 py-1 rounded-full inline-block">
+                  {t.eduUniStatus}
+                </p>
+              </div>
+            </div>
+          </div>
+        </motion.section>
+
+        {/* 5. EXPERIENCE */}
+        <motion.section
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4 }}
+        >
+          <div className="flex items-center gap-3 mb-6">
+            <Briefcase size={24} className="text-black" />
+            <h2 className="text-2xl font-bold tracking-tight">{t.expTitle}</h2>
+          </div>
+
+          <div className="bg-white p-6 md:p-8 rounded-2xl border border-zinc-200/60 shadow-sm hover:border-zinc-300 transition-colors">
+            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4 mb-6">
+              <div>
+                <h3 className="font-bold text-xl mb-1">
+                  Patisserie "Zucchero"
+                </h3>
+                <p className="text-zinc-500 font-medium">{t.expZucSub}</p>
+              </div>
+              <span className="text-xs font-bold text-zinc-500 uppercase tracking-wider bg-zinc-100 px-3 py-1.5 rounded-full inline-block">
+                {t.expZucDate}
+              </span>
+            </div>
+            <ul className="space-y-3 text-zinc-600 font-medium">
+              <li className="flex items-start gap-3">
+                <span className="text-black text-lg mt-[-2px]">•</span>{" "}
+                {t.expZucB1}
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-black text-lg mt-[-2px]">•</span>{" "}
+                {t.expZucB2}
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-black text-lg mt-[-2px]">•</span>{" "}
+                {t.expZucB3}
+              </li>
+            </ul>
+          </div>
+        </motion.section>
+
+        {/* 6. LANGUAGES, CERTS & HARDWARE (Grid for smaller info blocks) */}
+        <motion.section
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          className="grid grid-cols-1 md:grid-cols-2 gap-8"
+        >
+          {/* Languages */}
+          <div className="bg-white p-8 rounded-3xl border border-zinc-200/60 shadow-sm">
+            <div className="flex items-center gap-3 mb-6">
+              <Globe size={20} className="text-black" />
+              <h3 className="font-bold text-xl">{t.langTitle}</h3>
+            </div>
+            <div className="space-y-4">
+              <div className="flex justify-between items-center pb-3 border-b border-zinc-100">
+                <span className="font-medium text-zinc-800">{t.langGr}</span>
+                <span className="text-xs font-bold bg-zinc-100 px-3 py-1 rounded-full text-zinc-600">
+                  {t.langGrLvl}
+                </span>
+              </div>
+              <div className="flex justify-between items-center pb-2">
+                <span className="font-medium text-zinc-800">{t.langEn}</span>
+                <span className="text-xs font-bold bg-zinc-100 px-3 py-1 rounded-full text-zinc-600">
+                  {t.langEnLvl}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Certifications */}
+          <div className="bg-white p-8 rounded-3xl border border-zinc-200/60 shadow-sm">
+            <div className="flex items-center gap-3 mb-6">
+              <Award size={20} className="text-black" />
+              <h3 className="font-bold text-xl">{t.certTitle}</h3>
+            </div>
+            <ul className="space-y-4 text-zinc-800">
+              <li className="font-bold">Figma: TChasiotis</li>
+              <li className="font-bold">
+                {t.certE4E} <br />
+                <span className="text-zinc-500 font-medium text-sm mt-1 inline-block">
+                  {t.certE4ESub}
+                </span>
+              </li>
+              <li className="font-bold">
+                {t.certIT} <br />
+                <span className="text-zinc-500 font-medium text-sm mt-1 inline-block">
+                  {t.certITSub}
+                </span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Hardware & IT Support (Full width on md screens) */}
+          <div className="md:col-span-2 bg-zinc-100/80 p-8 rounded-3xl border border-zinc-200/60">
+            <h4 className="font-bold text-lg text-zinc-800 mb-3 flex items-center gap-2">
+              <Cpu size={20} /> {t.hwTitle}
+            </h4>
+            <p className="text-zinc-600 font-medium leading-relaxed mb-2">
+              {t.hwDesc1}
+            </p>
+            <p className="text-zinc-600 font-medium leading-relaxed">
+              {t.hwDesc2}
+            </p>
+          </div>
+        </motion.section>
       </main>
     </div>
   );
